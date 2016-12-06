@@ -267,7 +267,13 @@ class SqlServerGrammar extends Grammar
      */
     public function getDateFormat()
     {
-        return 'Y-m-d H:i:s.000';
+        if (version_compare(PHP_VERSION, '5.6.20', '<') ||
+            (version_compare(PHP_VERSION, '7.0.0', '>=') &&
+             version_compare(PHP_VERSION, '7.0.5', '<'))) {
+            return 'Y-m-d H:i:s.000';
+        } else {
+            return 'Y-m-d H:i:s';
+        }
     }
 
     /**
